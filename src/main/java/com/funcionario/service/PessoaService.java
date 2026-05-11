@@ -9,6 +9,6 @@ public interface PessoaService {
     PessoaDTO atualizar (Long id, PessoaDTO pessoaDTO);
     PessoaDTO buscarPorId (Long id);
     List<PessoaDTO> listarPessoas ();
-    List<PessoaDTO> buscarPorNome(String nome);
+    List<PessoaDTO> buscarPessoaNome(String nome);
     void remover (Long id);
 }
