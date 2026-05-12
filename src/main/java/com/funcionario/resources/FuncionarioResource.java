@@ -2,7 +2,6 @@ package com.funcionario.resources;
 
 import com.funcionario.dtos.FuncionarioDTO;
 import com.funcionario.service.FuncionarioService;
-import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
