@@ -56,6 +56,7 @@ public class PessoaResource {
     }
 
     @GET
+    @Path("/buscar")
     public List<PessoaDTO> buscarPorNome (@QueryParam("nome") String nome) {
         return pessoaService.buscarPessoaNome(nome);
     }
