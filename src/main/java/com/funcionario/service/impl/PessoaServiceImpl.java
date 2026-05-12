@@ -56,7 +56,10 @@ public class PessoaServiceImpl implements PessoaService {
 
     @Override
     public List<PessoaDTO> buscarPessoaNome(String nome) {
-        List<Pessoa> listPessoa = pessoaRepository.buscarPorNome(nome.toUpperCase());
+        if (nome == null || nome.isBlank()){
+            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+        }
+        List<Pessoa> listPessoa = pessoaRepository.buscarPorNome(nome.toUpperCase().trim());
         if (listPessoa.isEmpty()){
             throw new NotFoundException("Pessoa com nome " + nome + " não encontrada");
         }
