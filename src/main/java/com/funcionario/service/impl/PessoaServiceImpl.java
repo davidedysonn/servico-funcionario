@@ -49,17 +49,24 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public List<PessoaDTO> listarPessoas() {
-        List<Pessoa> listPessoa = pessoaRepository.findAll().stream().toList();
-        return listPessoa.stream().map(pessoaMapper::toDTO).toList();
+    public List<PessoaDTO> listarPessoas(int page, int size) {
+        List<Pessoa> listPessoa = pessoaRepository
+                .findAll()
+                .page(page, size)
+                .list();
+
+        return listPessoa.
+                stream()
+                .map(pessoaMapper::toDTO)
+                .toList();
     }
 
     @Override
-    public List<PessoaDTO> buscarPessoaNome(String nome) {
+    public List<PessoaDTO> buscarPessoaNome(String nome, int page, int size) {
         if (nome == null || nome.isBlank()){
             throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
         }
-        List<Pessoa> listPessoa = pessoaRepository.buscarPorNome(nome.toUpperCase().trim());
+        List<Pessoa> listPessoa = pessoaRepository.buscarPorNome(nome.toUpperCase().trim(), page, size);
         if (listPessoa.isEmpty()){
             throw new NotFoundException("Pessoa com nome " + nome + " não encontrada");
         }

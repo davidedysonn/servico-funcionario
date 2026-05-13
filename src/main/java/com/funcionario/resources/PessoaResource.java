@@ -51,14 +51,20 @@ public class PessoaResource {
 
     @GET
     // ps. aqui segue o mesmo padrao do spring se nao botar nada ele vai pro metodo all.
-    public List<PessoaDTO> listarPessoas (){
-        return pessoaService.listarPessoas();
+    public List<PessoaDTO> listarPessoas (
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("10") int size){
+        return pessoaService.listarPessoas(page, size);
     }
 
     @GET
     @Path("/buscar")
-    public List<PessoaDTO> buscarPorNome (@QueryParam("nome") String nome) {
-        return pessoaService.buscarPessoaNome(nome);
+    public List<PessoaDTO> buscarPorNome (
+            @QueryParam("nome") String nome,
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("10") int size){
+
+        return pessoaService.buscarPessoaNome(nome, page, size );
     }
 
     @DELETE

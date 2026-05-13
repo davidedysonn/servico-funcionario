@@ -9,9 +9,11 @@ import java.util.List;
 @ApplicationScoped
 public class PessoaRepository implements PanacheRepository<Pessoa> {
 
-    //Exemplo usando Panache Query com LIKE
-    public List<Pessoa> buscarPorNome (String nome){
-        return find("nome LIKE ?1", "%" + nome + "%").list();
+    //Exemplo usando Panache Query com LIKE e paginação
+    public List<Pessoa> buscarPorNome(String nome, int page, int size) {
+        return find("nome LIKE ?1", "%" + nome + "%")
+                .page(page, size)
+                .list();
     }
 
     //Exemplo usando JPQL
