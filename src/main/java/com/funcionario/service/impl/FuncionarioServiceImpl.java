@@ -53,12 +53,17 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public List<FuncionarioDTO> listarFuncionarios() {
-//         ps. aparentemente o panache tem os dois: findALl e listAll
+    public List<FuncionarioDTO> listarFuncionarios(int page, int size) {
+//        ps. aparentemente o panache tem os dois: findALl(PERMITE FAZER ALGO MAIS DEPOIS) e listAll(FINALIZADOR)
 //        List<Funcionario> funcionarios = funcionarioRepository.findAll().stream().toList();
 //        return funcionarios.stream().map(funcionarioMapper::toDTO).toList();
-        return funcionarioRepository.listAll()
-                .stream()
+
+        List<Funcionario> funcionarios = funcionarioRepository
+                .findAll()
+                .page(page, size)
+                .list();
+
+        return funcionarios.stream()
                 .map(funcionarioMapper::toDTO)
                 .toList();
     }

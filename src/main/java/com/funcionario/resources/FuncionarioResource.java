@@ -40,8 +40,10 @@ public class FuncionarioResource {
     }
 
     @GET
-    public List<FuncionarioDTO> listFuncionarios (){
-        return funcionarioService.listarFuncionarios();
+    public List<FuncionarioDTO> listFuncionarios (
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("10") int size){
+        return funcionarioService.listarFuncionarios(page, size);
     }
 
     @GET

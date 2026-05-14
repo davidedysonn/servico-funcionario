@@ -8,6 +8,6 @@ public interface FuncionarioService {
     FuncionarioDTO criar (FuncionarioDTO funcionarioDTO);
     FuncionarioDTO atualizar (Long id, FuncionarioDTO funcionarioDTO);
     FuncionarioDTO buscarPorId (Long id);
-    List<FuncionarioDTO> listarFuncionarios ();
+    List<FuncionarioDTO> listarFuncionarios (int page, int size);
     void removerFuncionario (Long id);
 }
