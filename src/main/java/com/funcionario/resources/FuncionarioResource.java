@@ -2,6 +2,7 @@ package com.funcionario.resources;
 
 import com.funcionario.dtos.FuncionarioDTO;
 import com.funcionario.service.FuncionarioService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -21,6 +22,7 @@ public class FuncionarioResource {
     }
 
     @POST
+    @RolesAllowed({"ADMIN", "RH"})
     public Response criar (@Valid FuncionarioDTO funcionarioDTO){
         FuncionarioDTO funcionarioResponse = funcionarioService.criar(funcionarioDTO);
         return Response
@@ -31,6 +33,7 @@ public class FuncionarioResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"ADMIN", "RH"})
     public Response atualizar (@PathParam("id") Long id, @Valid FuncionarioDTO funcionarioDTO){
         FuncionarioDTO funcionarioResponse = funcionarioService.atualizar(id, funcionarioDTO);
         return Response
@@ -40,6 +43,7 @@ public class FuncionarioResource {
     }
 
     @GET
+    @RolesAllowed({"ADMIN", "RH"})
     public List<FuncionarioDTO> listFuncionarios (
             @QueryParam("page") @DefaultValue("0") int page,
             @QueryParam("size") @DefaultValue("10") int size){
@@ -48,12 +52,14 @@ public class FuncionarioResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"ADMIN", "RH"})
     public FuncionarioDTO buscarFuncionarioPorId (@PathParam("id") Long id){
         return funcionarioService.buscarPorId(id);
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"ADMIN"})
     public Response deletar (@PathParam("id") Long id){
         funcionarioService.removerFuncionario(id);
         return Response

@@ -2,6 +2,7 @@ package com.funcionario.resources;
 
 import com.funcionario.dtos.PessoaDTO;
 import com.funcionario.service.PessoaService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -20,6 +21,7 @@ public class PessoaResource {
     }
 
     @POST
+    @RolesAllowed({"ADMIN", "RH"})
     public Response criar (@Valid PessoaDTO pessoaDTO) {
         PessoaDTO pessoaResponse = pessoaService.criar(pessoaDTO);
         return Response
@@ -30,6 +32,7 @@ public class PessoaResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"ADMIN", "RH"})
     public Response atualizar (@PathParam("id") Long id, @Valid PessoaDTO pessoaDTO){
         PessoaDTO pessoaResponse = pessoaService.atualizar(id, pessoaDTO);
         return Response
@@ -45,11 +48,13 @@ public class PessoaResource {
     * */
     @GET
     @Path("/{id}")
+    @RolesAllowed({"ADMIN", "RH"})
     public PessoaDTO  buscarPorId (@PathParam("id") Long id){
         return pessoaService.buscarPorId(id);
     }
 
     @GET
+    @RolesAllowed({"ADMIN", "RH"})
     // ps. aqui segue o mesmo padrao do spring se nao botar nada ele vai pro metodo all.
     public List<PessoaDTO> listarPessoas (
             @QueryParam("page") @DefaultValue("0") int page,
@@ -59,6 +64,7 @@ public class PessoaResource {
 
     @GET
     @Path("/buscar")
+    @RolesAllowed({"ADMIN", "RH"})
     public List<PessoaDTO> buscarPorNome (
             @QueryParam("nome") String nome,
             @QueryParam("page") @DefaultValue("0") int page,
@@ -69,6 +75,7 @@ public class PessoaResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"ADMIN"})
     public Response deletar (@PathParam("id") Long id){
         pessoaService.remover(id);
         return Response.noContent().build();
